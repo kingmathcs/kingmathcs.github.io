@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en" class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms no-csstransforms3d csstransitions fontface no-generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta http-equiv="x-ua-compatible" content="IE=Edge"> 
+<meta name="application-name" content="Learn SQL with simple, interactive exercises.">
+<meta name="application-url" content="#">
+<meta name="created" content="2015-04-01">
+<meta name="description" content="SQL tutorial provides a set of interactive lessons and exercises to help you learn SQL">
+<meta name="keywords" content="sql,mysql,sqlite,postgres,javascript,learn,tutorial,interactive,lessons,">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link type="image/png" href="./Learn SQL - SQL Lesson 1_ SELECT queries 101_files/favicon.png" rel="icon">
+<title>Learn SQL - SQL Lesson 1: SELECT queries 101</title>
+
+<!-- PREFETCH -->
+<link rel="prefetch" href="./Learn SQL - SQL Lesson 1_ SELECT queries 101_files/sql_3.8.7.4.js">
+
+<!-- CSS -->
+<link type="text/css" href="./Learn SQL - SQL Lesson 1_ SELECT queries 101_files/bootstrap.min.css" rel="stylesheet">
+<link type="text/css" href="./Learn SQL - SQL Lesson 1_ SELECT queries 101_files/css" rel="stylesheet">
+<link type="text/css" href="./Learn SQL - SQL Lesson 1_ SELECT queries 101_files/main.min.css" rel="stylesheet">
+
+<!-- BODY -->
+<body class="">
+
+
+<div class="container">
+    <div class="row content">
+    
+        <!-- MENU -->
+        <div class="menu_container">
+            <div class="lesson_menu menu">
+                <div class="title">All Lessons</div>
+                    
+            </div>
+            <div class="practice_menu menu">
+                <div class="title">Additional Topics</div>
+                    
+            </div>
+        </div>
+
+        <!-- LESSON -->
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-9">
+        <!-- LESSON TITLE & BODY -->
+        <div class="lesson">
+            <div class="title">
+                SQL Lesson 1: SELECT queries 101
+            </div>
+            <div class="body">
+                <p>To retrieve data from a SQL database, we need to write <code>SELECT</code> statements, which are often colloquially 
+refered to as <i>queries</i>.  A query in itself is just a statement which declares what data we are 
+looking for, where to find it in the database, and optionally, how to transform it before it is returned. 
+It has a specific syntax though, which is what we are going to learn in the following exercises.</p>
+<p>As we mentioned in the introduction, you can think of a table in SQL as a type of an entity (ie. Dogs), 
+and each row in that table as a specific <i>instance</i> of that type (ie. A pug, a beagle, a different 
+colored pug, etc).  This means that the columns would then represent the common properties shared
+by all instances of that entity (ie. Color of fur, length of tail, etc).</p>
+<p>And given a table of data, the most basic query we could write would be one that selects for a couple 
+columns (properties) of the table with all the rows (instances).</p>
+<div class="definition">
+    <div class="desc">Select query for a specific columns</div>
+    <code class="sql hljs"><span class="hljs-operator"><span class="hljs-keyword">SELECT</span> column, another_column, …
+<span class="hljs-keyword">FROM</span> mytable;</span></code>
+</div>
+
+<p>The result of this query will be a two-dimensional set of rows and columns, effectively a copy of the 
+table, but only with the columns that we requested.</p>
+<p>If we want to retrieve absolutely all the columns of data from a table, we can then use the asterisk (<code>*</code>) 
+shorthand in place of listing all the column names individually.</p>
+<div class="definition">
+    <div class="desc">Select query for all columns</div>
+    <code class="sql hljs"><span class="hljs-operator"><span class="hljs-keyword">SELECT</span> * 
+<span class="hljs-keyword">FROM</span> mytable;</span></code>
+</div>
+
+<p>This query in particular is really useful because it's a simple way inspect a table by dumping all the 
+data at once.</p>
+<h1>Exercise</h1>
+<p>We will be using a database with data about some of Pixar's classic movies for most of our exercises.
+This first exercise will only involve the <strong>Movies</strong> table, and the default query below currently 
+shows all the properties of each movie.  To continue onto the next lesson, alter the query to find
+the exact information we need for each task.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12">
+        <!-- EXERCISE -->
+        <div class="disabled_exercise_overlay">
+    Sorry but the SQL exercises require a more recent browser to run.<br>Please upgrade to the latest version of <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie" title="Download Internet Explorer">Internet Explorer</a>, <a href="https://www.google.com/chrome/browser/desktop/index.html" title="Download Chrome">Chrome</a>, or <a href="https://www.mozilla.org/en-US/firefox/new/" title="Download Firefox">Firefox</a>!
+    <br><br>
+    <span>Otherwise, continue to the next lesson: <a href="#">SQL Lesson 2: Queries with constraints (Pt. 1)</a></span>
+</div>
+<div class="exercise" exerciseid="ex1" style="position: relative;">
+	<div class="body row">
+        <div class="datatable_title col-xs-12 col-sm-8 col-md-8">Table: movies</div>
+        <div class="table_and_input col-xs-12 col-sm-8 col-md-8">
+            <div class="message"></div>
+            <div class="datatable" datatableid="movies">
+                <table class="table table-striped table-condensed">
+                    <tbody>
+                        <tr>
+                            <td class="column_name">id</td>
+                            <td class="column_name">title</td>
+                            <td class="column_name">director</td>
+                            <td class="column_name">year</td>
+                            <td class="column_name">length_minutes</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Toy Story</td>
+                            <td>John Lasseter</td>
+                            <td>1995</td>
+                            <td>81</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>A Bug's Life</td>
+                            <td>John Lasseter</td>
+                            <td>1998</td>
+                            <td>95</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Toy Story 2</td>
+                            <td>John Lasseter</td>
+                            <td>1999</td>
+                            <td>93</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Monsters, Inc.</td>
+                            <td>Pete Docter</td>
+                            <td>2001</td>
+                            <td>92</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Finding Nemo</td>
+                            <td>Andrew Stanton</td>
+                            <td>2003</td>
+                            <td>107</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>The Incredibles</td>
+                            <td>Brad Bird</td>
+                            <td>2004</td>
+                            <td>116</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>Cars</td>
+                            <td>John Lasseter</td>
+                            <td>2006</td>
+                            <td>117</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>Ratatouille</td>
+                            <td>Brad Bird</td>
+                            <td>2007</td>
+                            <td>115</td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>WALL-E</td>
+                            <td>Andrew Stanton</td>
+                            <td>2008</td>
+                            <td>104</td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>Up</td>
+                            <td>Pete Docter</td>
+                            <td>2009</td>
+                            <td>101</td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td>Toy Story 3</td>
+                            <td>Lee Unkrich</td>
+                            <td>2010</td>
+                            <td>103</td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td>Cars 2</td>
+                            <td>John Lasseter</td>
+                            <td>2011</td>
+                            <td>120</td>
+                        </tr>
+                        <tr>
+                            <td>13</td>
+                            <td>Brave</td>
+                            <td>Brenda Chapman</td>
+                            <td>2012</td>
+                            <td>102</td>
+                        </tr>
+                        <tr>
+                            <td>14</td>
+                            <td>Monsters University</td>
+                            <td>Dan Scanlon</td>
+                            <td>2013</td>
+                            <td>110</td>
+                        </tr>
+                        <tr>
+                            <td>15</td>
+                            <td>Toy Story 4</td>
+                            <td>Josh Cooley</td>
+                            <td>2019</td>
+                            <td>89</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+			<div class="sqlinput_container">
+                <a href="#" class="clear">RESET</a>
+	    		<div id="ace_text" class="sqlinput ace_editor ace-tm ace_focus" targetdatatableid="movies" style="font-size: 1em;"><textarea class="ace_text-input" wrap="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="opacity: 0; height: 18.8889px; width: 10.1219px; left: 228.559px; top: 0px;"></textarea><div class="ace_gutter" style="display: none;"><div class="ace_layer ace_gutter-layer ace_folding-enabled" style="margin-top: 0px;"></div><div class="ace_gutter-active-line" style="top: 0px; height: 18.8889px;"></div></div><div class="ace_scroller" style="left: 0px; right: 0px; bottom: 0px;"><div class="ace_content" style="margin-top: 0px; width: 743px; height: 173.778px; margin-left: 0px;"><div class="ace_layer ace_print-margin-layer"><div class="ace_print-margin" style="left: 16px; visibility: hidden;"></div></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_text-layer" style="padding: 0px 16px;"><div class="ace_line_group" style="height:18.88888931274414px"><div class="ace_line" style="height:18.88888931274414px"><span class="ace_keyword">SELECT</span> * <span class="ace_keyword">FROM</span> <span class="ace_identifier">movies</span>;</div></div></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_cursor-layer"><div class="ace_cursor" style="left: 228.559px; top: 0px; width: 10.1219px; height: 18.8889px;"></div></div></div></div><div class="ace_scrollbar ace_scrollbar-v" style="display: none; width: 20px; bottom: 0px;"><div class="ace_scrollbar-inner" style="width: 20px; height: 18.8889px;"></div></div><div class="ace_scrollbar ace_scrollbar-h" style="display: none; height: 20px; left: 0px; right: 0px;"><div class="ace_scrollbar-inner" style="height: 20px; width: 743px;"></div></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; overflow: hidden;"><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; overflow: visible;"></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font-style: inherit; font-variant: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; overflow: visible;">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></div></div>
+	    	</div>
+		</div><!-- /table_and_input -->
+
+		<div class="tasks_and_continue col-xs-12 col-sm-4 col-md-4">
+			<div class="tasks_title">
+				Exercise 1 — <span class="title">Tasks</span>
+			</div>
+			<ol class="tasks_list">
+                <li class="active">
+                    Find the <code>title</code> of each film
+                </li>
+                <li>
+                    Find the <code>director</code> of each film
+                </li>
+                <li>
+                    Find the <code>title</code> and <code>director</code> of each film
+                </li>
+                <li>
+                    Find the <code>title</code> and <code>year</code> of each film
+                </li>
+                <li>
+                    Find <code>all</code> the information about each film
+                </li>
+			</ol>
+			<a href="#" class="continue disabled">
+				Finish above Tasks
+			</a>
+		</div><!-- /tasks_and_continue -->
+	</div><!-- /body -->
+</div><!-- /exercise -->
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<!-- JS -->
+
+<script type="text/javascript" src="./Learn SQL - SQL Lesson 1_ SELECT queries 101_files/jquery.min.js"></script>
+<script type="text/javascript" src="./Learn SQL - SQL Lesson 1_ SELECT queries 101_files/underscore-min.js"></script>
+<script type="text/javascript" src="./Learn SQL - SQL Lesson 1_ SELECT queries 101_files/bootstrap.min.js"></script>
+<script type="text/javascript" src="./Learn SQL - SQL Lesson 1_ SELECT queries 101_files/highlight.min.js"></script>
+<script type="text/javascript" src="./Learn SQL - SQL Lesson 1_ SELECT queries 101_files/modernizr.min.js"></script>
+<script type="text/javascript" src="./Learn SQL - SQL Lesson 1_ SELECT queries 101_files/main.min.js"></script>
+<script type="text/javascript" src="./Learn SQL - SQL Lesson 1_ SELECT queries 101_files/sql_3.8.7.4.js"></script>
+<script type="text/javascript" src="./Learn SQL - SQL Lesson 1_ SELECT queries 101_files/ace.js"></script>
+<script type="text/javascript" src="./Learn SQL - SQL Lesson 1_ SELECT queries 101_files/mode-sql.js"></script>
+<script type="text/javascript" src="./Learn SQL - SQL Lesson 1_ SELECT queries 101_files/pixar.js"></script>
+
+
+
+
+<script type="text/javascript">
+	"use strict";
+
+    // Setup the exercises
+    var exerciseJson = "{\"tasks_title\": \"Exercise 1\", \"database\": \"pixar.js\", \"targetDatatableId\": \"movies\", \"inputDefaultQuery\": \"SELECT * FROM movies;\", \"inputDefaultQuerySelection\": [7, 8], \"datatable\": {\"movies\": {\"preloadTableQuery\": \"INSERT INTO movies VALUES (15, \\\"Toy Story 4\\\", \\\"Josh Cooley\\\", 2019, 89);\", \"defaultQuery\": \"SELECT * FROM movies;\"}}, \"tasks\": [{\"text\": \"Find the <code>title</code> of each film\", \"solution\": \"SELECT title FROM movies;\", \"checks\": [{\"type\": \"col_equals\", \"data\": [\"title\"]}]}, {\"text\": \"Find the <code>director</code> of each film\", \"solution\": \"SELECT director FROM movies; \", \"checks\": [{\"type\": \"col_equals\", \"data\": [\"director\"]}]}, {\"text\": \"Find the <code>title</code> and <code>director</code> of each film\", \"solution\": \"SELECT title, director FROM movies; \", \"checks\": [{\"type\": \"col_equals\", \"data\": [\"title\", \"director\"]}]}, {\"text\": \"Find the <code>title</code> and <code>year</code> of each film\", \"solution\": \"SELECT title, year FROM movies; \", \"checks\": [{\"type\": \"col_equals\", \"data\": [\"title\", \"year\"]}]}, {\"text\": \"Find <code>all</code> the information about each film\", \"solution\": \"SELECT * FROM movies; \", \"checks\": [{\"type\": \"row_col_val_solution_query\", \"data\": null}]}]}";
+
+    initializeDocumentLoad(exerciseJson, "lesson/1");
+    exerciseJson = null;
+</script>
+
+</body>
+</html>
