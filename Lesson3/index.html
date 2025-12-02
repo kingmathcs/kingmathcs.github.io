@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en" class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface no-generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta http-equiv="x-ua-compatible" content="IE=Edge"> 
+<meta name="application-name" content="Learn SQL with simple, interactive exercises.">
+<meta name="application-url" content="#">
+<meta name="description" content="This provides a set of interactive lessons and exercises to help you learn SQL">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link type="image/png" href="./Learn SQL - SQL Lesson 3_ Filtering and sorting Query results_files/favicon.png" rel="icon">
+<title>Learn SQL - SQL Lesson 3: Filtering and sorting Query results</title>
+
+<!-- PREFETCH -->
+<link rel="prefetch" href="./Learn SQL - SQL Lesson 3_ Filtering and sorting Query results_files/sql_3.8.7.4.js">
+
+<!-- CSS -->
+<link type="text/css" href="./Learn SQL - SQL Lesson 3_ Filtering and sorting Query results_files/bootstrap.min.css" rel="stylesheet">
+<link type="text/css" href="./Learn SQL - SQL Lesson 3_ Filtering and sorting Query results_files/css" rel="stylesheet">
+<link type="text/css" href="./Learn SQL - SQL Lesson 3_ Filtering and sorting Query results_files/main.min.css" rel="stylesheet">
+<style type="text/css">
+</style>
+
+<!-- BODY -->
+<body class="">
+
+
+<div class="container">
+    <div class="row content">
+
+        <!-- LESSON -->
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-9">
+        <!-- LESSON TITLE & BODY -->
+        <div class="lesson">
+            <div class="title">
+                SQL Lesson 3: Filtering and sorting Query results
+            </div>
+            <div class="body">
+                <p>Even though the data in a database may be unique, the results of any particular query may not be – 
+take our Movies table for example, many different movies can be released the same year.  In such cases, 
+SQL provides a convenient way to discard rows that have a duplicate column value by using the <code>DISTINCT</code>
+keyword.</p>
+<div class="definition">
+    <div class="desc">Select query with unique results</div>
+    <code class="sql hljs"><span class="hljs-operator"><span class="hljs-keyword">SELECT</span> </span><strong><span class="hljs-operator"><span class="hljs-keyword">DISTINCT</span></span></strong><span class="hljs-operator"> column, another_column, …
+<span class="hljs-keyword">FROM</span> mytable
+<span class="hljs-keyword">WHERE</span> </span><i><span class="hljs-operator">condition(s)</span></i><span class="hljs-operator">;</span></code>
+</div>
+
+<p>Since the <code>DISTINCT</code> keyword will blindly remove duplicate rows, we will learn in a future lesson
+how to discard duplicates based on specific columns using grouping and the <code>GROUP BY</code> clause.</p>
+<h1>Ordering results</h1>
+<p>Unlike our neatly ordered table in the last few lessons, most data in real databases are added in no
+particular column order.  As a result, it can be difficult to read through and understand the results 
+of a query as the size of a table increases to thousands or even millions rows.</p>
+<p>To help with this, SQL provides a way to sort your results by a given column in ascending or descending 
+order using the <code>ORDER BY</code> clause.</p>
+<div class="definition">
+    <div class="desc">Select query with ordered results</div>
+    <code class="sql hljs"><span class="hljs-operator"><span class="hljs-keyword">SELECT</span> column, another_column, …
+<span class="hljs-keyword">FROM</span> mytable
+<span class="hljs-keyword">WHERE</span> </span><i><span class="hljs-operator">condition(s)</span></i><span class="hljs-operator">
+</span><strong><span class="hljs-operator"><span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> column <span class="hljs-keyword">ASC</span>/<span class="hljs-keyword">DESC</span></span></strong><span class="hljs-operator">;</span></code>
+</div>
+
+<p>When an <code>ORDER BY</code> clause is specified, each row is sorted alpha-numerically based on the specified
+column's value.  In some databases, you can also specify a collation to better sort data containing
+international text.</p>
+
+<div class="dyk">
+    <div class="desc">Did you know?</div>
+    <p>
+    By default, the data will be in ascending order when using <code>ORDER BY</code>, so if you don't specify <code>ASC</code> or <code>DESC</code>, it will be sorted in ascending order.
+    </p>
+</div>
+
+<h1>Limiting results to a subset</h1>
+<p>Another clause which is commonly used with the <code>ORDER BY</code> clause are the <code>LIMIT</code> and <code>OFFSET</code> clauses, 
+which are a useful optimization to indicate to the database the subset of the results you care about.<br>
+The <code>LIMIT</code> will reduce the number of rows to return, and the optional <code>OFFSET</code> will specify where to 
+begin counting the number rows from.</p>
+<div class="definition">
+    <div class="desc">Select query with limited rows</div>
+    <code class="sql hljs"><span class="hljs-operator"><span class="hljs-keyword">SELECT</span> column, another_column, …
+<span class="hljs-keyword">FROM</span> mytable
+<span class="hljs-keyword">WHERE</span> </span><i><span class="hljs-operator">condition(s)</span></i><span class="hljs-operator">
+<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> column <span class="hljs-keyword">ASC</span>/<span class="hljs-keyword">DESC</span>
+</span><strong><span class="hljs-operator"><span class="hljs-keyword">LIMIT</span> num_limit <span class="hljs-keyword">OFFSET</span> num_offset</span></strong><span class="hljs-operator">;</span></code>
+</div>
+
+<p>If you think about websites like Reddit or Pinterest, the front page is a list of links sorted by popularity 
+and time, and each subsequent page can be represented by sets of links at different offsets in the 
+database.  Using these clauses, the database can then execute queries faster and more efficiently
+by processing and returning only the requested content.</p>
+<div class="dyk">
+    <div class="desc">Did you know?</div>
+    <p>
+    If you are curious about when the <code>LIMIT</code> and <code>OFFSET</code> are applied relative 
+    to the other parts of a query, they are generally done last after the other clauses have been applied.  
+    We'll touch more on this in Lesson 12: Order of execution after introducting a few more parts of the query.
+    </p>
+</div>
+
+<h1>Exercise</h1>
+<p>There are a few concepts in this lesson, but all are pretty straight-forward to apply.  To spice things 
+up, we've gone and scrambled the <strong>Movies</strong> table for you in the exercise to better mimic what kind of
+data you might see in real life.  Try and use the necessary keywords and clauses introduced above in 
+your queries.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12">
+        <!-- EXERCISE -->
+        <div class="disabled_exercise_overlay">
+    Sorry but these SQL exercises require a more recent browser to run.<br>Please upgrade to the latest version of <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie" title="Download Internet Explorer">Internet Explorer</a>, <a href="https://www.google.com/chrome/browser/desktop/index.html" title="Download Chrome">Chrome</a>, or <a href="https://www.mozilla.org/en-US/firefox/new/" title="Download Firefox">Firefox</a>!
+    <br><br>
+    
+</div>
+<div class="exercise" exerciseid="ex4" style="position: relative;">
+	<div class="body row">
+        <div class="datatable_title col-xs-12 col-sm-8 col-md-8">Table: movies</div>
+        <div class="table_and_input col-xs-12 col-sm-8 col-md-8">
+            <div class="message"></div>
+            <div class="datatable" datatableid="movies">
+                <table class="table table-striped table-condensed"><tbody><tr><td class="column_name">id</td><td class="column_name">title</td><td class="column_name">director</td><td class="column_name">year</td><td class="column_name">length_minutes</td></tr><tr><td>1</td><td>Cars</td><td>John Lasseter</td><td>2006</td><td>117</td></tr><tr><td>2</td><td>Toy Story 2</td><td>John Lasseter</td><td>1999</td><td>93</td></tr><tr><td>3</td><td>Toy Story 3</td><td>Lee Unkrich</td><td>2010</td><td>103</td></tr><tr><td>4</td><td>Cars 2</td><td>John Lasseter</td><td>2011</td><td>120</td></tr><tr><td>5</td><td>The Incredibles</td><td>Brad Bird</td><td>2004</td><td>116</td></tr><tr><td>6</td><td>A Bug's Life</td><td>John Lasseter</td><td>1998</td><td>95</td></tr><tr><td>7</td><td>Monsters, Inc.</td><td>Pete Docter</td><td>2001</td><td>92</td></tr><tr><td>8</td><td>Brave</td><td>Brenda Chapman</td><td>2012</td><td>102</td></tr><tr><td>9</td><td>Monsters University</td><td>Dan Scanlon</td><td>2013</td><td>110</td></tr><tr><td>10</td><td>WALL-E</td><td>Andrew Stanton</td><td>2008</td><td>104</td></tr>
+                    <tr>
+                        <td>11</td>
+                        <td>Toy Story 4</td>
+                        <td>Josh Cooley</td>
+                        <td>2019</td>
+                        <td>89</td>
+                    </tr>
+                    <tr><td>12</td><td>Toy Story</td><td>John Lasseter</td><td>1995</td><td>81</td></tr>
+                    <tr><td>13</td><td>Up</td><td>Pete Docter</td><td>2009</td><td>101</td></tr>
+                    <tr><td>14</td><td>Finding Nemo</td><td>Andrew Stanton</td><td>2003</td><td>107</td></tr>
+                    <tr><td>15</td><td>Ratatouille</td><td>Brad Bird</td><td>2007</td><td>115</td></tr></tbody>
+                </table>
+            </div>
+			<div class="sqlinput_container">
+                <a href="#" class="clear">RESET</a>
+	    		<div id="ace_text" class="sqlinput ace_editor ace-tm ace_focus" targetdatatableid="movies" style="font-size: 1em;"><textarea class="ace_text-input" wrap="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="opacity: 0; height: 18.8889px; width: 10.1219px; left: 228.559px; top: 0px;"></textarea><div class="ace_gutter" style="display: none;"><div class="ace_layer ace_gutter-layer ace_folding-enabled" style="margin-top: 0px;"></div><div class="ace_gutter-active-line" style="top: 0px; height: 18.8889px;"></div></div><div class="ace_scroller" style="left: 0px; right: 0px; bottom: 0px;"><div class="ace_content" style="margin-top: 0px; width: 743px; height: 173.778px; margin-left: 0px;"><div class="ace_layer ace_print-margin-layer"><div class="ace_print-margin" style="left: 16px; visibility: hidden;"></div></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_text-layer" style="padding: 0px 16px;"><div class="ace_line_group" style="height:18.88888931274414px"><div class="ace_line" style="height:18.88888931274414px"><span class="ace_keyword">SELECT</span> * <span class="ace_keyword">FROM</span> <span class="ace_identifier">movies</span>;</div></div></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_cursor-layer"><div class="ace_cursor" style="left: 228.559px; top: 0px; width: 10.1219px; height: 18.8889px; opacity: 0;"></div></div></div></div><div class="ace_scrollbar ace_scrollbar-v" style="display: none; width: 20px; bottom: 0px;"><div class="ace_scrollbar-inner" style="width: 20px; height: 18.8889px;"></div></div><div class="ace_scrollbar ace_scrollbar-h" style="display: none; height: 20px; left: 0px; right: 0px;"><div class="ace_scrollbar-inner" style="height: 20px; width: 743px;"></div></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; overflow: hidden;"><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; overflow: visible;"></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font-style: inherit; font-variant: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; overflow: visible;">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></div></div>
+	    	</div>
+		</div><!-- /table_and_input -->
+
+		<div class="tasks_and_continue col-xs-12 col-sm-4 col-md-4">
+			<div class="tasks_title">
+				Exercise 3 — <span class="title">Tasks</span>
+			</div>
+			<ol class="tasks_list">
+                <li class="active">
+                    List all directors of Pixar movies (alphabetically), without duplicates
+                </li>
+                <li>
+                    List the last four Pixar movies released (ordered from most recent to least)
+                </li>
+                <li>
+                    List the <strong>first</strong> five Pixar movies sorted alphabetically
+                </li>
+                <li>
+                    List the <strong>next</strong> five Pixar movies sorted alphabetically
+                </li>
+			</ol>
+            <a href="#" class="continue disabled">
+				Finish above Tasks
+			</a>
+		</div><!-- /tasks_and_continue -->
+	</div><!-- /body -->
+</div><!-- /exercise -->
+
+
+          
+    </div>
+</div>
+
+    </div>
+</div>
+
+<!-- JS -->
+
+<script type="text/javascript" src="./Learn SQL - SQL Lesson 3_ Filtering and sorting Query results_files/jquery.min.js"></script>
+<script type="text/javascript" src="./Learn SQL - SQL Lesson 3_ Filtering and sorting Query results_files/underscore-min.js"></script>
+<script type="text/javascript" src="./Learn SQL - SQL Lesson 3_ Filtering and sorting Query results_files/bootstrap.min.js"></script>
+<script type="text/javascript" src="./Learn SQL - SQL Lesson 3_ Filtering and sorting Query results_files/highlight.min.js"></script>
+<script type="text/javascript" src="./Learn SQL - SQL Lesson 3_ Filtering and sorting Query results_files/modernizr.min.js"></script>
+<script type="text/javascript" src="./Learn SQL - SQL Lesson 3_ Filtering and sorting Query results_files/main.min.js"></script>
+<script type="text/javascript" src="./Learn SQL - SQL Lesson 3_ Filtering and sorting Query results_files/sql_3.8.7.4.js"></script>
+<script type="text/javascript" src="./Learn SQL - SQL Lesson 3_ Filtering and sorting Query results_files/ace.js"></script>
+<script type="text/javascript" src="./Learn SQL - SQL Lesson 3_ Filtering and sorting Query results_files/mode-sql.js"></script>
+<script type="text/javascript" src="./Learn SQL - SQL Lesson 3_ Filtering and sorting Query results_files/pixar.js"></script>
+
+
+
+
+<script type="text/javascript">
+	"use strict";
+
+    // Setup the exercises
+    var exerciseJson = "{\"tasks_title\": \"Exercise 3\", \"database\": \"pixar.js\", \"targetDatatableId\": \"movies\", \"inputDefaultQuery\": \"SELECT * FROM movies;\", \"inputDefaultQuerySelection\": [20, 20], \"datatable\": {\"movies\": {\"preloadTableQuery\": \"INSERT INTO movies VALUES (15, \\\"Toy Story 4\\\", \\\"Josh Cooley\\\", 2019, 89);\", \"preloadTableAction\": {\"action\": \"randomizeRows\", \"column\": \"movies\"}, \"defaultQuery\": \"SELECT * FROM movies;\"}}, \"tasks\": [{\"text\": \"List all directors of Pixar movies (alphabetically), without duplicates\", \"solution\": \"SELECT DISTINCT director FROM movies\\nORDER BY director ASC;\", \"checks\": [{\"type\": \"row_col_val_solution_query_ordered\", \"data\": null}]}, {\"text\": \"List the last four Pixar movies released (ordered from most recent to least)\", \"userSolution\": \"SELECT title, year FROM movies\\nORDER BY year DESC\\nLIMIT 4;\", \"solution\": \"SELECT title FROM movies\\nORDER BY year DESC\\nLIMIT 4;\", \"checks\": [{\"type\": \"row_col_val_solution_query_ordered\", \"data\": null}]}, {\"text\": \"List the <strong>first</strong> five Pixar movies sorted alphabetically\", \"solution\": \"SELECT title FROM movies\\nORDER BY title ASC\\nLIMIT 5;\", \"checks\": [{\"type\": \"row_col_val_solution_query_ordered\", \"data\": null}]}, {\"text\": \"List the <strong>next</strong> five Pixar movies sorted alphabetically\", \"solution\": \"SELECT title FROM movies\\nORDER BY title ASC\\nLIMIT 5 OFFSET 5;\", \"checks\": [{\"type\": \"row_col_val_solution_query_ordered\", \"data\": null}]}]}";
+
+    initializeDocumentLoad(exerciseJson, "lesson/3");
+    exerciseJson = null;
+</script>
+
+
+</body></html>
