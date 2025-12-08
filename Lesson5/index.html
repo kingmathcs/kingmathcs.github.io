@@ -47,8 +47,20 @@ as shown in this physics example.</p>
 <span class="hljs-keyword">FROM</span> physics_data;</span></code>
 </div>
 
-<p>Each database has its own supported set of mathematical, string, and date functions that can be used
-in a query, which you can find in their own respective docs.</p>
+<p>Each database also has its own supported set of mathematical, string, and date functions that can be used
+in a query to compute more advanced calculations, which you can find in their own respective docs. For example: 
+<a href="https://dev.mysql.com/doc/refman/8.4/en/mathematical-functions.html">MySQL</a> and 
+<a href="https://www.postgresql.org/docs/current/functions-math.html">PostgreSQL</a>.</p>
+
+<p>Here is an example that uses some mathematical functions for expoenents and value of pi for calculating the 
+    surface area of a sphere:</p>
+
+<div class="definition">
+    <div class="desc">Example query using built-in functions</div>
+    <code class="sql hljs"><span class="hljs-operator"><span class="hljs-keyword">SELECT</span> </span><strong><span class="hljs-operator"><span class="hljs-number">4</span> * PI() * POW(radius, <span class="hljs-number">2</span>)</span></strong><span class="hljs-operator"> <span class="hljs-keyword">AS</span> Surface_Area_Sphere
+<span class="hljs-keyword">FROM</span> collected_data;</span></code>
+</div>
+
 <p>For these exercises, the four basic arithmetic operators (+, -, *, /) will be enough.</p>
 <p>The use of expressions can save time and extra post-processing of the result data, but can also make 
 the query harder to read, so we recommend that when expressions are used in the <code>SELECT</code> part of the 
